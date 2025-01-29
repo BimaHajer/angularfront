@@ -1,0 +1,30 @@
+<p>You can introduce custom directives for table headers to sort columns</p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col" sortable="name" >Id</th>
+			<th scope="col" sortable="area" >EMail</th>
+			<th scope="col" sortable="population" >firstName</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+			<tr *ngFor="let user of users">
+                
+				<th scope="row">{{ user.id }}</th>
+				<td>
+					<img
+						[src]="'https://upload.wikimedia.org/wikipedia/commons/'"
+						class="me-2"
+						style="width: 20px"
+					/>
+					{{ user.email }}
+				</td>
+				<td>{{ user.lastName }}</td>
+				<td>{{ user.firstName  }}</td>
+			</tr>
+		
+	</tbody>
+</table>

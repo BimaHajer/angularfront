@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 
@@ -10,10 +11,16 @@ import { SidenavComponent } from './sidenav/sidenav.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    SidenavComponent
+    SidenavComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule
+  ],exports:[
+    HeaderComponent,
+    FooterComponent,
+    SidenavComponent,
+    NavBarComponent
   ]
 })
 export class CoreModule { }

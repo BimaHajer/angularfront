@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+import { AuthModule } from './auth/auth.module';
+import { RouterModule } from '@angular/router';  // Ajoutez RouterModule ici
 
 @NgModule({
   declarations: [
@@ -12,11 +12,11 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,HttpClientModule,RouterModule
+    AppRoutingModule,
+    CoreModule,
+    RouterModule,
   ],
-  providers: [
-    provideClientHydration()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

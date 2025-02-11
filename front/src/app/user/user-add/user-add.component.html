@@ -1,28 +1,159 @@
-<div *ngIf="show" class="alert alert-success" role="alert">
-   {{msg}}
+<!-- Stepper Component HTML -->
+<div id="hs-stepper-to-destroy" data-hs-stepper="">
+  <!-- Stepper Nav -->
+  <ul class="relative flex flex-row gap-x-2">
+    <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group" [attr.data-hs-stepper-nav-item]="{ index: 1 }">
+      <span class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle">
+        <span
+          class="size-7 flex justify-center items-center shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full group-focus:bg-gray-200"
+          [class.hs-stepper-active]="currentStep === 1" [class.hs-stepper-success]="isStepSuccess(1)"
+          [class.hs-stepper-completed]="isStepCompleted(1)">
+          <span class="hs-stepper-success:hidden hs-stepper-completed:hidden">1</span>
+          <svg class="hidden shrink-0 size-3 hs-stepper-success:block" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <span class="ms-2 text-sm font-medium text-gray-800">Step</span>
+      </span>
+      <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden" [class.hs-stepper-success]="isStepSuccess(1)"
+        [class.hs-stepper-completed]="isStepCompleted(1)"></div>
+    </li>
+
+    <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group" [attr.data-hs-stepper-nav-item]="{ index: 2 }">
+      <span class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle">
+        <span
+          class="size-7 flex justify-center items-center shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full group-focus:bg-gray-200"
+          [class.hs-stepper-active]="currentStep === 2" [class.hs-stepper-success]="isStepSuccess(2)"
+          [class.hs-stepper-completed]="isStepCompleted(2)">
+          <span class="hs-stepper-success:hidden hs-stepper-completed:hidden">2</span>
+          <svg class="hidden shrink-0 size-3 hs-stepper-success:block" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <span class="ms-2 text-sm font-medium text-gray-800">Step</span>
+      </span>
+      <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden" [class.hs-stepper-success]="isStepSuccess(2)"
+        [class.hs-stepper-completed]="isStepCompleted(2)"></div>
+    </li>
+
+    <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group" [attr.data-hs-stepper-nav-item]="{ index: 3 }">
+      <span class="min-w-7 min-h-7 group inline-flex items-center text-xs align-middle">
+        <span
+          class="size-7 flex justify-center items-center shrink-0 bg-gray-100 font-medium text-gray-800 rounded-full group-focus:bg-gray-200"
+          [class.hs-stepper-active]="currentStep === 3" [class.hs-stepper-success]="isStepSuccess(3)"
+          [class.hs-stepper-completed]="isStepCompleted(3)">
+          <span class="hs-stepper-success:hidden hs-stepper-completed:hidden">3</span>
+          <svg class="hidden shrink-0 size-3 hs-stepper-success:block" xmlns="http://www.w3.org/2000/svg" width="24"
+            height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <span class="ms-2 text-sm font-medium text-gray-800">Step</span>
+      </span>
+      <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden" [class.hs-stepper-success]="isStepSuccess(3)"
+        [class.hs-stepper-completed]="isStepCompleted(3)"></div>
+    </li>
+  </ul>
+  <!-- End Stepper Nav -->
+
+  <!-- Stepper Content -->
+  <div class="mt-5 sm:mt-8 p-5 bg-white dark:bg-gray-800 shadow-sm rounded-xl">
+    <!-- First Content: User Information Form -->
+    <div *ngIf="currentStep === 1">
+      <div class="p-4 h-48 flex justify-center items-center rounded-xl">
+        <form  [formGroup]="userForm">
+          <div  style="width: 300px"  class="mb-5">
+            <label for="firstName" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"> Nom:</label>
+            <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+          </div>
+         
+          <div class="mb-5">
+            <label for="lastName" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">prenom </label>
+            <input type="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          </div>
+       
+        </form>
+      </div>
+    </div>
+    <!-- End First Content -->
+
+    <!-- Second Content: User Contact Information -->
+    <div *ngIf="currentStep === 2">
+      <div  class="p-4 h-200 bg-white flex justify-center items-center  rounded-xl">
+        <!-- <form [formGroup]="userForm">
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email"><br>
+          <label for="password">Password:</label>
+          <input id="password" formControlName="password" type="password"><br>
+        </form> -->
+      
+
+<form  [formGroup]="userForm">
+  <div  style="width: 300px"  class="mb-5">
+    <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"> email</label>
+    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
   </div>
+ 
+  <div class="mb-5">
+    <label for="password" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">mote de passe </label>
+    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
+  <div class="mb-5">
+    <label for="password" class="block mb-1text-sm font-medium text-gray-900 dark:text-white">mote de passe comfirmer</label>
+    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+  </div>
+</form>
 
-<form  [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label for="exampleInputEmail1"> first Name</label>
-      <input type="text" formControlName="firstName" class="form-control" id="exampleInputEmail1"  aria-describedby="emailHelp" placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
     </div>
+    <!-- End Second Content -->
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="text" formControlName="lastName" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <!-- Third Content: User Role and Dates -->
+    <div *ngIf="currentStep === 3">
+      <div class="p-4 h-48 bg-gray-50 flex justify-center items-center border border-dashed border-gray-200 rounded-xl">
+        <form [formGroup]="userForm">
+          <label for="role">Role:</label>
+          <input id="role" formControlName="role" type="text"><br>
+          <label for="createdAt">Created At:</label>
+          <input id="createdAt" formControlName="created_at" type="date"><br>
+          <label for="updatedAt">Updated At:</label>
+          <input id="updatedAt" formControlName="updated_at" type="date"><br>
+          <label for="deletedAt">Deleted At:</label>
+          <input id="deletedAt" formControlName="deleted_at" type="date"><br>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password"  formControlName="password"class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
-   
-    <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Submit</button>
-  </form>
+    <!-- End Third Content -->
+
+    <!-- Button Group -->
+    <div class="mt-5 flex justify-between items-center gap-x-2">
+      <button type="button"
+        class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+        [disabled]="currentStep === 1" (click)="goToPreviousStep()">
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        Back
+      </button>
+      <button type="button"
+        class="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+        [disabled]="currentStep === maxSteps" (click)="goToNextStep()">
+        Next
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width=">24" height="24" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- End Button Group -->
+  </div>
+</div>
+<!-- End Stepper Content -->
+
+<!-- End Stepper Component HTML -->

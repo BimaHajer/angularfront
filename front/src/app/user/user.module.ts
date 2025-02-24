@@ -5,7 +5,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserADDComponent } from './user-add/user-add.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
-import { UserListComponent } from './user-list/user-list.component';
+import {ListUserComponent } from './user-list/user-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserADDComponent,
     UserUpdateComponent,
     UserDeleteComponent,
-    UserListComponent
+    ListUserComponent
   ],
   imports: [
     CommonModule,

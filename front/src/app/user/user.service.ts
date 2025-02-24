@@ -1,32 +1,45 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './user';
-import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  addUser(value: any) {
+  findUserById(id: number) {
+    throw new Error('Method not implemented.');
+  }
+  getUserList() {
     throw new Error('Method not implemented.');
   }
 
   constructor(private http:HttpClient) { }
+   
+urlApi:string='http://localhost:3000'
+ create(userData:User) : Observable<User>
+ {
+  return this.http.post<User>(this.urlApi+'/user/create-user',userData) as Observable<User>
+}
+listUser():Observable<any>
+{
+  return this.http.get(this.urlApi+'/user/list-users') as Observable<any>
+}
 
-  getUserList():Observable<any>{
-    return this.http.get("http://localhost:3000/user/list-users") as Observable<any>
-  }
-  getUserById(id:number):Observable<any>{
-    return this.http.get<User>('http://localhost:3000/user/user/'+JSON.stringify(id)) as Observable<any>
-  }
-  createUser(userCreate:User):Observable<any>{
-    return this.http.post<User>('http://localhost:3000/user/create-user',userCreate) as Observable<any>
-  }
-  updateUser(userUpdate:User, id:number):Observable<any>{
-    return this.http.patch<User>('http://localhost:3000/user/update-user/'+JSON.stringify(id),userUpdate)  as Observable<any>
-  }
-  deleteUser(id:number):Observable<any>{
-    return this.http.delete<User>('http://localhost:3000/user/delete-user/'+JSON.stringify(id)) as Observable<any>
-  }
+
+getUserById(id:number) : Observable<User>
+{
+ return  this.http.get(this.urlApi+"/user/user/"+JSON.stringify(id)) as Observable<User> 
+}
+updateUser(id:number,dataUser:User) :Observable<User>{
+  return this.http.patch(this.urlApi+"/user/update-user/"+JSON.stringify(id),dataUser) as Observable<User>
+}
+ DeleteUser(id:number): Observable<any>{
+  return this.http.delete(this.urlApi+"/user/delete-user/"+JSON.stringify(id))
+ }
+ DeleteMultiple(userList:any):Observable<any>
+ {
+  console.log("liste delete",userList) 
+  return this.http.post(this.urlApi+'/user/delete-Multiple-users',userList) as Observable<any>}
+
 }

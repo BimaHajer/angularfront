@@ -26,10 +26,10 @@ export class DeleteComponent {
           return;
         }
       
-        const locataireIds = this.selectedList.map(locataire => locataire.id);
-        console.log("Bailleurs sélectionnés :", locataireIds);
+        const lessorIds = this.selectedList.map(lessor => lessor.id);
+        console.log("Bailleurs sélectionnés :", lessorIds);
       
-        this.lessorService.deleteMultipleLessor(locataireIds).subscribe(data => {
+        this.lessorService.deleteMultipleLessor(lessorIds).subscribe(data => {
           this.save.emit(true);
         });
       }

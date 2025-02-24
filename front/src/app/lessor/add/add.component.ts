@@ -90,7 +90,7 @@ export class AddComponent {
       this.lessorService.createLessor(lessor).subscribe(data=>{
         console.log("data",data)
         this.show=true
-        this.msg="Locatire ajouté avec succès !"
+        this.msg="bailleur ajouté avec succès !"
        
     
         

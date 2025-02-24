@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'add', component: AddComponent },
   { path: 'update/:id', component: UpdateComponent }, 
   { path: 'delete/:id', component: DeleteComponent }, 
-  { path: 'list', component: ListComponent },
+  { path: '', component: ListComponent },
   { path: '', redirectTo: '/list', pathMatch: 'full' }, 
   { path: '**', redirectTo: '/list' } 
 ];

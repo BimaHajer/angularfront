@@ -7,7 +7,10 @@ const routes: Routes = [{
 { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
 { path: 'locataire', loadChildren: () => import('./locataire/locataire.module').then(m => m.LocataireModule) },
   { path: '', redirectTo: '/locataire/list-locataire', pathMatch: 'full' },
-  {path:"lessor",loadChildren:()=>import('./lessor/lessor.module').then(m=>m.LessorModule)}
+  {path:"lessor",loadChildren:()=>import('./lessor/lessor.module').then(m=>m.LessorModule)},
+  {path:"equipement",loadChildren:()=>import('./equipement/equipement.module').then(m=>m.EquipementModule)},
+
+
 ];
 
 @NgModule({

@@ -6,6 +6,10 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router'; 
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // <-- Ajoutez cette ligne
+import {  ReactiveFormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -15,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    RouterModule,HttpClientModule,RouterModule
+    RouterModule,HttpClientModule,RouterModule,FormsModule,ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,17 +6,18 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router'; 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // <-- Ajoutez cette ligne
-import {  ReactiveFormsModule } from '@angular/forms';
 
-
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';  // ✅ Pour ngModel
 @NgModule({
   declarations: [
     AppComponent,
+   
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
+    FormsModule,  // ✅ Importé pour utiliser [(ngModel)]
     AppRoutingModule,
     CoreModule,
     RouterModule,HttpClientModule,RouterModule,FormsModule,ReactiveFormsModule

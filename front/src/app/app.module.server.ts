@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 
-import { AppModule } from './app.module';
+import { AppModule } from './app.module';  // Vérifie le chemin ici
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -9,6 +9,6 @@ import { AppComponent } from './app.component';
     AppModule,
     ServerModule,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent], // Assurez-vous que l'élément racine de l'application est correctement bootstrapé
 })
 export class AppServerModule {}

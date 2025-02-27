@@ -28,7 +28,7 @@ getClientById(id:number) : Observable<Locataire>
 updateClient(id:number,dataClient:Locataire) :Observable<Locataire>{
   return this.http.patch(this.urlApi+"/Client/update-client/"+JSON.stringify(id),dataClient) as Observable<Locataire>
 }
-DeleteUser(id:number): Observable<any>{
+DeleteClient(id:number): Observable<any>{
   return this.http.delete(this.urlApi+"/Client/delete-client/"+JSON.stringify(id))
  }
  DeleteMultiple(locataireList:any):Observable<any>

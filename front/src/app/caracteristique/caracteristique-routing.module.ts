@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AddCaracteristiqueComponent } from './add-caracteristique/add-caracteristique.component';
+import { ListCaracteristiqueComponent} from './list-caracteristique/list-caracteristique.component'
+import { UpdateCaracteristiqueComponent } from './update-caracteristique/update-caracteristique.component';
+import { DeleteCaracteristiqueComponent } from './delete-caracteristique/delete-caracteristique.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'list-caracteristique', pathMatch: 'full' }, 
+  { path: 'add-caracteristique', component: AddCaracteristiqueComponent },
+  { path: 'update-caracteristique/:id', component: UpdateCaracteristiqueComponent },
+  { path: 'list-caracteristique', component: ListCaracteristiqueComponent },
+  { path: 'delete-caracteristique', component: DeleteCaracteristiqueComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class CaracteristiqueRoutingModule { }

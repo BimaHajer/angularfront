@@ -11,7 +11,8 @@ const routes: Routes = [{
   {path:"lessor",loadChildren:()=>import('./lessor/lessor.module').then(m=>m.LessorModule)},
   {path:"equipement",loadChildren:()=>import('./equipement/equipement.module').then(m=>m.EquipementModule)},
 
-  {path: 'caracteristique', loadChildren: () => import('./caracteristique/caracteristique.module').then(m => m.CaracteristiqueModule)} 
+  {path: 'caracteristique', loadChildren: () => import('./caracteristique/caracteristique.module').then(m => m.CaracteristiqueModule)}, 
+  {path: 'house', loadChildren: () => import('./house/house.module').then(m => m.HouseModule)} 
 
 ];
 

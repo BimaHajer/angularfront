@@ -1,0 +1,159 @@
+<form [formGroup]="houseForm" (ngSubmit)="onSubmit()" class="p-6 bg-white rounded-lg shadow-md">
+    <!-- Titre -->
+    <div class="mb-4">
+        <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
+        <input type="text" id="title" formControlName="title" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea id="description" formControlName="description" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+    </div>
+
+    <!-- Ville -->
+    <div class="mb-4">
+        <label for="city" class="block text-sm font-medium text-gray-700">Ville</label>
+        <input type="text" id="city" formControlName="city" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+
+    <!-- Prix -->
+    <div class="mb-4">
+        <label for="price" class="block text-sm font-medium text-gray-700">Prix</label>
+        <input type="number" id="price" formControlName="price" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+
+    <div class="mb-4 relative">
+        <div class="mb-4 relative">
+            <label class="block text-sm font-medium text-gray-700">Equipement</label>
+            
+            <!-- Custom Select -->
+            <div class="mt-1 relative">
+                <button type="button" (click)="toggleDropdownEquipement()" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 flex items-center justify-between">
+                    <span>{{ "Sélectionner une Equipement" }}</span>
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div *ngIf="dropdownOpen1" 
+                     class="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                    <ul class="max-h-60 overflow-y-auto">
+                        <li *ngFor="let equipement of equipements" 
+                            (click)="selectEquipement(equipement)" 
+                            class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                            <img [src]="equipement.image" alt="Icon" class="w-6 h-6">
+                            {{ equipement.nom }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <span *ngFor="let equipement of selectedEquipements; let i = index" 
+                          class="bg-gray-200 px-3 py-1 rounded-md flex items-center">
+                        <img [src]="equipement.image" alt="Icon" class="w-5 h-5 mr-2">
+                        {{ equipement.nom }}
+                        <button type="button" (click)="removeEquipement(i)" 
+                                class="ml-2 text-red-600 hover:text-red-800">
+                            ×
+                        </button>
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+      
+    </div>
+    
+    <!-- Caractéristiques -->
+    <div class="mb-4 relative">
+        <label class="block text-sm font-medium text-gray-700">Caractéristiques</label>
+        
+        <!-- Custom Select -->
+        <div class="mt-1 relative">
+            <button type="button" (click)="toggleDropdown()" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 flex items-center justify-between">
+                <span>{{ "Sélectionner une caractéristique" }}</span>
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+    
+            <!-- Dropdown List -->
+            <div *ngIf="dropdownOpen" 
+                 class="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10">
+                <ul class="max-h-60 overflow-y-auto">
+                    <li *ngFor="let characteristic of characteristics" 
+                        (click)="selectCharacteristic(characteristic)" 
+                        class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                        <img [src]="characteristic.image" alt="Icon" class="w-6 h-6">
+                        {{ characteristic.title }}
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-2 flex flex-wrap gap-2">
+                <span *ngFor="let characteristic of selectedCharacteristics; let i = index" 
+                      class="bg-gray-200 px-3 py-1 rounded-md flex items-center">
+                    <img [src]="characteristic.image" alt="Icon" class="w-5 h-5 mr-2">
+                    {{ characteristic.title }}
+                    <button type="button" (click)="removeCharacteristic(i)" 
+                            class="ml-2 text-red-600 hover:text-red-800">
+                        ×
+                    </button>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+    
+
+    <!-- Groupes d'images -->
+    <div class="mb-4" *ngFor="let group of imageGroups; let groupIndex = index">
+        <label class="block text-sm font-medium text-gray-700">Groupe d'images {{ groupIndex + 1 }}</label>
+        <input type="file" multiple (change)="onFileChange($event, groupIndex)" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+
+        <!-- Affichage des prévisualisations -->
+        <div class="mt-4 grid grid-cols-3 gap-4">
+            <div *ngFor="let preview of group.previews; let imageIndex = index" class="relative">
+                <img [src]="preview" alt="Image preview" class="w-full h-32 object-cover rounded-lg">
+                <button type="button" (click)="removeImage(groupIndex, imageIndex)" class="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bouton pour supprimer ce groupe -->
+        <button type="button" (click)="removeImageGroup(groupIndex)" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+            Supprimer ce groupe
+        </button>
+    </div>
+    <div class="mb-4">
+        <!-- <label class="block text-sm font-medium text-gray-700">Disponibilité</label> -->
+        <label class="inline-flex items-center cursor-pointer">
+                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Disponibilité:</span>
+
+            <input type="checkbox" value="" class="sr-only peer">
+            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+          </label>
+        <!-- <select formControlName="availability" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="oui">Oui</option>
+            <option value="non">Non</option>
+        </select> -->
+    </div> 
+
+    <!-- Bouton pour ajouter un groupe d'images -->
+    <button type="button" (click)="addImageGroup()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        Ajouter un groupe d'images
+    </button>
+
+    <!-- Disponibilité -->
+   
+
+    <!-- Bouton Enregistrer -->
+    <div class="mt-6">
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Enregistrer
+        </button>
+    </div>
+</form>

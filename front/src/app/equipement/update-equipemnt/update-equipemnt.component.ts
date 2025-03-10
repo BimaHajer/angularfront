@@ -1,62 +1,71 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EquipementService } from '../equipement.service';
-import { Equipement } from '../equipement';
 
 @Component({
   selector: 'app-update-equipment',
-  templateUrl: './update-equipemnt.component.html',
-  styleUrls: ['./update-equipemnt.component.css'],
+  templateUrl: './update-equipment.component.html',
 })
-export class UpdateEquipemntComponent implements OnInit {
-  equipment: Equipement = {
-    id: 0,
-    nom: '',
-    description: '',
-    image: '',
-    created_at: new Date(),
-  };
-  newImage: File | null = null;
-
+export class UpdateEquipmentComponent implements OnInit {
+  equipmentForm: FormGroup; 
+  newImage: File | null = null; 
+ id:number=0
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private equipementService: EquipementService,
-  ) {}
+    private equipementService: EquipementService
+  ) {
+    this.equipmentForm = this.fb.group({
+      nom: ['', Validators.required],
+      description: ['', Validators.required], 
+      image: [''], 
+    });
+  }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.equipementService.getEquipementById(+id).subscribe((data) => {
-        this.equipment = data;
-        console.log("data",data)
+    this.id = Number(this.route.snapshot.paramMap.get('id'))
+    if (this.id) {
+      this.equipementService.getEquipementById(this.id).subscribe((data) => {
+        this.equipmentForm.patchValue({
+          nom: data.nom,
+          description: data.description,
+          image: data.image,
+        });
       });
     }
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any): void {
     if (event.target.files.length > 0) {
-      this.newImage = event.target.files[0];
+      const file = event.target.files[0];
+      this.newImage = file; 
     }
   }
 
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('nom', this.equipment.nom);
-    formData.append('description', this.equipment.description);
-    if (this.newImage) {
-      formData.append('image', this.newImage); // Ajouter la nouvelle image
+  onSubmit(): void {
+    if (this.equipmentForm.invalid) {
+      console.error('Form is invalid');
+      return;
     }
 
-    this.equipementService.updateEquipement(this.equipment.id, formData).subscribe(
-      (response) => {
-        console.log('Équipement mis à jour avec succès', response);
+    const formData = new FormData();
+    formData.append('nom', this.equipmentForm.get('nom')?.value);
+    formData.append('description', this.equipmentForm.get('description')?.value);
+
+    if (this.newImage) {
+      formData.append('image', this.newImage);
+    }
+
+    this.equipementService.updateEquipement(this.id,formData).subscribe(
+      (response:any) => {
+        console.log('Equipment updated successfully', response);
         this.router.navigate(['/equipements']);
       },
-      (error) => {
-        console.error('Erreur lors de la mise à jour de l\'équipement', error);
+      (error:any) => {
+        console.error('Error updating equipment', error);
       }
     );
-    
   }
 }

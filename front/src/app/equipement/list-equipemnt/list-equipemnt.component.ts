@@ -83,32 +83,6 @@ export class ListEquipemntComponent implements OnInit {
     console.log("close", this.close)
    
   }
-  // Ouvrir le modal de confirmation de suppression
-  // actionOpen() {
-  //   const selectedIds = this.selectedEquipements.map((equipement) => equipement.id);
-  //   if (confirm('Êtes-vous sûr de vouloir supprimer les équipements sélectionnés ?')) {
-  //     this.equipementService.deleteMultiple(selectedIds).subscribe(
-  //       () => {
-  //         this.loadEquipements(); // Recharger la liste après suppression
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la suppression des équipements', error);
-  //       }
-  //     );
-  //   }
-  // }
-  // deleteMultipleEquipements() {
-  //   const selectedIds = this.selectedEquipements.map(equipement => equipement.id);
-  //   if (selectedIds.length > 0 && confirm('Êtes-vous sûr de vouloir supprimer ces équipements ?')) {
-  //     this.equipementService.deleteMultiple(selectedIds).subscribe(
-  //       () => {
-  //         this.loadEquipements(); // Recharger la liste après suppression
-  //       },
-  //       (error) => {
-  //         console.error('Erreur lors de la suppression des équipements', error);
-  //       }
-  //     );
-  //   }
-  // }
+
   
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CaracteristiqueService } from '../caracteristique.service';
-import { Caracteristique } from '../caracteristique';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-caracteristique',
@@ -9,29 +10,38 @@ import { Caracteristique } from '../caracteristique';
   styleUrls: ['./update-caracteristique.component.css']
 })
 export class UpdateCaracteristiqueComponent implements OnInit {
-  caracteristique: Caracteristique = {
-    id: 0,
-    title: '',
-    description: '',
-    image: '',
-    created_at: new Date().toISOString(),  
-  };
-  newImage: File | null = null;
-
+  caracteristiqueForm: FormGroup; // Reactive form
+  newImage: File | null = null; // For the new file upload
+id:number=0
   constructor(
-    private router: Router, 
+    private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
     private caracteristiqueService: CaracteristiqueService
-  ) {}
+  ) {
+    this.caracteristiqueForm = this.fb.group({
+      id: [0],
+      title: ['', Validators.required],
+      description: ['', Validators.required], 
+      image: [''], 
+    });
+  }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id && !isNaN(+id)) {  
-      this.caracteristiqueService.getCharacteristicById(+id).subscribe(
-        (data: Caracteristique) => {  
-          this.caracteristique = data;
+    this.id = Number(this.route.snapshot.paramMap.get('id')) // Get the ID from the route
+    if (this.id && !isNaN(this.id)) {
+      // Fetch the caracteristique data from the server
+      this.caracteristiqueService.getCharacteristicById(this.id).subscribe(
+        (data) => {
+          // Patch the fetched data into the form
+          this.caracteristiqueForm.patchValue({
+            id: data.id,
+            title: data.title,
+            description: data.description,
+            image: data.image,
+          });
         },
-        (error: any) => {  
+        (error) => {
           console.error('Erreur lors du chargement de la caractéristique', error);
         }
       );
@@ -41,37 +51,53 @@ export class UpdateCaracteristiqueComponent implements OnInit {
     }
   }
 
-  onFileChange(event: any): void {
-    if (event.target.files.length > 0) {
-      this.newImage = event.target.files[0];
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.newImage = input.files[0]; 
     }
   }
 
   onSubmit(): void {
-    if (this.caracteristique.id === 0 || !this.caracteristique.id) {
-      console.error('ID invalide, impossible de mettre à jour');
-      return; 
+    if (this.caracteristiqueForm.invalid) {
+      Swal.fire({
+        title: 'Erreur !',
+        text: 'Veuillez remplir tous les champs obligatoires.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+      return;
     }
-  
+
     const formData = new FormData();
-    formData.append('nom', this.caracteristique.title);
-    formData.append('description', this.caracteristique.description);
-  
+    formData.append('title', this.caracteristiqueForm.get('title')?.value);
+    formData.append('description', this.caracteristiqueForm.get('description')?.value);
+
     if (this.newImage) {
       formData.append('image', this.newImage);
     } else {
-      formData.append('image', this.caracteristique.image); 
+      formData.append('image', this.caracteristiqueForm.get('image')?.value);
     }
-  
-    this.caracteristiqueService.updateCharacteristic(this.caracteristique.id, formData).subscribe(
-      (response: any) => {  
-        console.log('Caractéristique mise à jour avec succès', response);
-        this.router.navigate(['/caracteristique']);
+    this.caracteristiqueService.updateCharacteristic(this.id, formData).subscribe(
+      (response) => {
+        Swal.fire({
+          title: 'Succès !',
+          text: 'La caractéristique a été mise à jour avec succès.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          this.router.navigate(['/caracteristiques']); 
+        });
       },
-      (error: any) => {  
+      (error) => {
         console.error('Erreur lors de la mise à jour de la caractéristique', error);
+        Swal.fire({
+          title: 'Erreur !',
+          text: 'Une erreur est survenue lors de la mise à jour de la caractéristique.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
       }
     );
   }
-  
 }

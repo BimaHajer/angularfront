@@ -4,13 +4,14 @@ import { AddCaracteristiqueComponent } from './add-caracteristique/add-caracteri
 import { ListCaracteristiqueComponent} from './list-caracteristique/list-caracteristique.component'
 import { UpdateCaracteristiqueComponent } from './update-caracteristique/update-caracteristique.component';
 import { DeleteCaracteristiqueComponent } from './delete-caracteristique/delete-caracteristique.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list-caracteristique', pathMatch: 'full' }, 
-  { path: 'add-caracteristique', component: AddCaracteristiqueComponent },
-  { path: 'update-caracteristique/:id', component: UpdateCaracteristiqueComponent },
-  { path: 'list-caracteristique', component: ListCaracteristiqueComponent },
-  { path: 'delete-caracteristique', component: DeleteCaracteristiqueComponent }
+  { path: '', redirectTo: 'list-caracteristique', pathMatch: 'full'  ,canActivate: [AuthGuard]}, 
+  { path: 'add-caracteristique', component: AddCaracteristiqueComponent ,canActivate: [AuthGuard] },
+  { path: 'update-caracteristique/:id', component: UpdateCaracteristiqueComponent ,canActivate: [AuthGuard]},
+  { path: 'list-caracteristique', component: ListCaracteristiqueComponent ,canActivate: [AuthGuard] },
+  { path: 'delete-caracteristique', component: DeleteCaracteristiqueComponent , canActivate: [AuthGuard] }
 ];
 
 @NgModule({

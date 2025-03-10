@@ -1,29 +1,31 @@
 <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
   <h1 class="text-2xl font-bold mb-6 text-gray-800">Ajouter une caractéristique</h1>
 
-  <form class="space-y-4" (ngSubmit)="onSubmit()">
+  <form [formGroup]="caracteristiqueForm" (ngSubmit)="onSubmit()" class="space-y-4">
     <div>
       <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
       <input
         type="text"
         id="title"
-        name="title"
-        [(ngModel)]="caracteristique.title"
+        formControlName="title"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        required
       />
+      <div *ngIf="caracteristiqueForm.get('title')?.invalid && caracteristiqueForm.get('title')?.touched" class="text-red-600 text-sm">
+        Ce champ est obligatoire.
+      </div>
     </div>
 
     <div>
       <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
       <textarea
         id="description"
-        name="description"
-        [(ngModel)]="caracteristique.description"
+        formControlName="description"
         rows="3"
         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        required
       ></textarea>
+      <div *ngIf="caracteristiqueForm.get('description')?.invalid && caracteristiqueForm.get('description')?.touched" class="text-red-600 text-sm">
+        Ce champ est obligatoire.
+      </div>
     </div>
 
     <div>
@@ -40,7 +42,6 @@
               <span>Uploader un fichier</span>
               <input
                 id="file-upload"
-                name="file-upload"
                 type="file"
                 (change)="onFileChange($event)"
                 class="sr-only"
